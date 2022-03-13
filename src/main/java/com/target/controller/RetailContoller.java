@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.target.dto.ProductDetails;
+import com.target.excpetion.RecordNotFoundException;
 import com.target.service.RetailService;
 
 @RestController
@@ -25,7 +26,7 @@ public class RetailContoller {
 	}
 	
 	@GetMapping("/{id}")
-	public ProductDetails getProductAndPriceDetails(@PathVariable("id") String productId) {
+	public ProductDetails getProductAndPriceDetails(@PathVariable("id") String productId) throws RecordNotFoundException {
 		return retailService.getProductAndPriceDetails(key, productId);
 	}
 	
