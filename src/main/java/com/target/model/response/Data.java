@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Data {
 	
-	@JsonProperty("product")
+	//@JsonProperty("product")
 	private Product product;
 
 	public Product getProduct() {

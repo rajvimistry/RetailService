@@ -7,7 +7,6 @@ public class Item {
 	@JsonProperty("product_description")
 	private ProductDescription productDescription;
 	
-	@JsonProperty("enrichment")
 	private Enrichment enrichment;
 	
 	@JsonProperty("product_classification")

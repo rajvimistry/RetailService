@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Enrichment {
 	
-	@JsonProperty("images")
+	//@JsonProperty("images")
 	private Images images;
 
 	public Images getImages() {

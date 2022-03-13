@@ -1,13 +1,9 @@
 package com.target.model.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class Product {
 
-	@JsonProperty("tcin")
 	private String tcin;
 	
-	@JsonProperty("item")
 	private Item item;
 
 	public String getTcin() {

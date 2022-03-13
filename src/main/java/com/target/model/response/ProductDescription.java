@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ProductDescription {
 	
-	@JsonProperty("title")
 	private String title;
 	
 	public String getTitle() {

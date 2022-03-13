@@ -4,7 +4,7 @@ import com.target.dto.ProductDetails;
 
 public interface RetailService {
 	
-	public ProductDetails getProductAndPriceDetails();
+	public ProductDetails getProductAndPriceDetails(String key, String productId);
 	
 	public void updatePrice();
 
