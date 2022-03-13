@@ -1,15 +1,17 @@
-package com.target.service;
+package com.target.service.retailservice;
+
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.target.model.response.Data;
+
+import com.target.model.dto.ProductDetails;
 import com.target.model.response.Response;
+import com.target.service.productdetails.ProductDetailsRepositoryService;
 
 import org.springframework.stereotype.Service;
 
 import com.target.driver.FeignServiceUtil;
-import com.target.dto.ProductDetails;
 import com.target.excpetion.RecordNotFoundException;
 
 
@@ -18,6 +20,9 @@ public class RetailServiceImpl implements RetailService{
 	
 	@Autowired
 	private FeignServiceUtil feignServiceUtil;
+	
+	@Autowired
+	private ProductDetailsRepositoryService repositoryService;
 	
 	Logger log = LogManager.getLogger(RetailServiceImpl.class);
 
@@ -31,14 +36,18 @@ public class RetailServiceImpl implements RetailService{
 				productDetails.setId(productId);
 			
 				if(response != null && response.getData()!= null && response.getData().getProduct() != null && 
-						response.getData().getProduct().getItem()!= null && response.getData().getProduct().getItem().getProductDescription() != null
-						&& response.getData().getProduct().getItem().getProductDescription().getTitle() != null) {
+						response.getData().getProduct().getItem()!= null && 
+						response.getData().getProduct().getItem().getProductDescription() != null && 
+						response.getData().getProduct().getItem().getProductDescription().getTitle() != null) {
 
 						productDetails.setName(response.getData().getProduct().getItem().getProductDescription().getTitle());
+						productDetails.setCurrentPrice(repositoryService.getProductPriceById(productId));
 				}
 			
 				return productDetails;
+				
 		} catch(Exception e) {
+			
 			if(e.getMessage().contains("No product found with tcin")) {
 				throw new RecordNotFoundException("Product "+ productId +" Not Found");
 			}
@@ -53,4 +62,8 @@ public class RetailServiceImpl implements RetailService{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+	
+	
 }

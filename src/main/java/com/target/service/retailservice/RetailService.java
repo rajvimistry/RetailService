@@ -1,7 +1,7 @@
-package com.target.service;
+package com.target.service.retailservice;
 
-import com.target.dto.ProductDetails;
 import com.target.excpetion.RecordNotFoundException;
+import com.target.model.dto.ProductDetails;
 
 public interface RetailService {
 	

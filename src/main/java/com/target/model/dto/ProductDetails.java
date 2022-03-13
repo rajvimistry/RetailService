@@ -1,9 +1,12 @@
-package com.target.dto;
+package com.target.model.dto;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ProductDetails {
 	
 	private String id;
 	private String name;
+	@JsonProperty("current_price")
 	private Price currentPrice;
 	
 	public String getId() {

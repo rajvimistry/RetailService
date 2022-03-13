@@ -1,8 +1,12 @@
-package com.target.dto;
+package com.target.model.dto;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Price {
 	
-	private String value;
+	private double value;
+	
+	@JsonProperty("currency_code")
 	private String currencyCode;
 	
 	
@@ -12,10 +16,10 @@ public class Price {
 	public void setCurrencyCode(String currencyCode) {
 		this.currencyCode = currencyCode;
 	}
-	public String getValue() {
+	public double getValue() {
 		return value;
 	}
-	public void setValue(String value) {
+	public void setValue(double value) {
 		this.value = value;
 	}
 
