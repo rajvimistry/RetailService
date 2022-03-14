@@ -3,7 +3,6 @@ package com.target.service.productdetails;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 import javax.annotation.PostConstruct;
 
@@ -17,7 +16,7 @@ import com.target.model.dto.Price;
 import com.target.model.dto.ProductPrice;
 
 @Service
-public class ProductDetailsRepositoryService {
+public class ProductDetailsRepositoryService{
 	
 	Logger log = LogManager.getLogger(ProductDetailsRepositoryService.class);
 	
@@ -59,6 +58,5 @@ public class ProductDetailsRepositoryService {
 		return price;
 		
 	}
-	
 
 }

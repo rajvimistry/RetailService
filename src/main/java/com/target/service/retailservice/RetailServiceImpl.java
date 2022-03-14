@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.target.model.dto.ProductDetails;
 import com.target.model.response.Response;
 import com.target.service.productdetails.ProductDetailsRepositoryService;
+import com.target.util.FeignServiceUtil;
 
 import org.springframework.stereotype.Service;
 
-import com.target.driver.FeignServiceUtil;
 import com.target.excpetion.RecordNotFoundException;
 
 
