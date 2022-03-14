@@ -5,8 +5,8 @@ import com.target.model.dto.ProductDetails;
 
 public interface RetailService {
 	
-	public ProductDetails getProductAndPriceDetails(String key, String productId) throws RecordNotFoundException;
+	public ProductDetails getProductAndPriceDetails(String key, int productId) throws RecordNotFoundException;
 	
-	public void updatePrice();
+	public ProductDetails updatePrice(int productId, ProductDetails productDetails);
 
 }

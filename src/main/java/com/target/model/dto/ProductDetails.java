@@ -4,15 +4,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ProductDetails {
 	
-	private String id;
+	private int id;
 	private String name;
 	@JsonProperty("current_price")
 	private Price currentPrice;
 	
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getName() {

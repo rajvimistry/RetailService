@@ -13,5 +13,5 @@ import com.target.model.response.Response;
 public interface FeignServiceUtil {
 	
 	@GetMapping
-	Response getProductDetails(@RequestParam(name = "key") String key, @RequestParam(name = "tcin") String tcin);
+	Response getProductDetails(@RequestParam(name = "key") String key, @RequestParam(name = "tcin") int tcin);
 }

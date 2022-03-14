@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.target.excpetion.RecordNotFoundException;
 import com.target.model.dto.ProductDetails;
+import com.target.service.productdetails.ProductDetailsRepositoryService;
 import com.target.service.retailservice.RetailService;
 
 @RestController
@@ -16,7 +18,7 @@ import com.target.service.retailservice.RetailService;
 public class RetailContoller {
 	
 	@Autowired
-	RetailService retailService;
+	private RetailService retailService;
 	
 	private final String key = "3yUxt7WltYG7MFKPp7uyELi1K40ad2ys";
 	
@@ -26,13 +28,13 @@ public class RetailContoller {
 	}
 	
 	@GetMapping("/{id}")
-	public ProductDetails getProductAndPriceDetails(@PathVariable("id") String productId) throws RecordNotFoundException {
+	public ProductDetails getProductAndPriceDetails(@PathVariable("id") int productId) throws RecordNotFoundException {
 		return retailService.getProductAndPriceDetails(key, productId);
 	}
 	
 	@PutMapping("/{id}")
-	public void updateProductAndPriceDetails(String productId) {
-		
+	public ProductDetails updatePriceDetails(@PathVariable("id")int productId, @RequestBody ProductDetails productDetails ) {
+		return retailService.updatePrice(productId, productDetails);
 	}
 
 }

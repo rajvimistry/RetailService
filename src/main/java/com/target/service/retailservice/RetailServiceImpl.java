@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.target.model.dto.Price;
 import com.target.model.dto.ProductDetails;
 import com.target.model.response.Response;
 import com.target.service.productdetails.ProductDetailsRepositoryService;
@@ -13,6 +14,7 @@ import com.target.util.FeignServiceUtil;
 import org.springframework.stereotype.Service;
 
 import com.target.excpetion.RecordNotFoundException;
+import com.target.excpetion.ValidationException;
 
 
 @Service
@@ -27,7 +29,7 @@ public class RetailServiceImpl implements RetailService{
 	Logger log = LogManager.getLogger(RetailServiceImpl.class);
 
 	@Override
-	public ProductDetails getProductAndPriceDetails(final String key, final String productId) throws RecordNotFoundException {
+	public ProductDetails getProductAndPriceDetails(final String key, final int productId) throws RecordNotFoundException {
 		
 		try {
 				Response response = feignServiceUtil.getProductDetails(key, productId);
@@ -50,20 +52,38 @@ public class RetailServiceImpl implements RetailService{
 			
 			if(e.getMessage().contains("No product found with tcin")) {
 				throw new RecordNotFoundException("Product "+ productId +" Not Found");
-			}
-			
+			}			
 			throw e;
 		}
 		
 	}
 
 	@Override
-	public void updatePrice() {
-		// TODO Auto-generated method stub
+	public ProductDetails updatePrice(int productId, ProductDetails productDetails) {
+		
+		validateRequest(productId,productDetails);
+		Price price = productDetails.getCurrentPrice();
+		price = repositoryService.updatePriceDetails(productId, price);
+		
+		if(price != null) {
+			productDetails.setCurrentPrice(price);
+			return productDetails;
+		}else {
+			throw new RecordNotFoundException("Product "+ productId +" Not Found");
+		}
 		
 	}
 	
-	
-	
-	
+	private void validateRequest(int productId, ProductDetails productDetails) {
+
+		if(productId != productDetails.getId()) {
+			throw new ValidationException("Invalid Payload");
+		}
+		
+		if(productDetails.getCurrentPrice().getCurrencyCode() == null ||
+				productDetails.getCurrentPrice().getCurrencyCode().isEmpty()) {
+			throw new ValidationException("Invalid Payload");
+		}
+		
+	}
 }

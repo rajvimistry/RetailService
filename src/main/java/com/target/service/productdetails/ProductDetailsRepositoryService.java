@@ -36,11 +36,11 @@ public class ProductDetailsRepositoryService{
 		
 	}
 	
-	public Price getProductPriceById(String productId) {
+	public Price getProductPriceById(int productId) {
 		
 		Price price = new Price();
 		
-		Optional<ProductPrice> productPrice = repository.findById(Integer.parseInt(productId));
+		Optional<ProductPrice> productPrice = repository.findById(productId);
 		
 		if(!productPrice.isEmpty()) {
 			price = getProductPrice(productPrice.get());
@@ -56,6 +56,23 @@ public class ProductDetailsRepositoryService{
 		price.setCurrencyCode(productPrice.getCurrencyCode());
 		price.setValue(productPrice.getPrice());
 		return price;
+		
+	}
+	
+	public Price updatePriceDetails(int productId, Price price) {
+		
+		Optional<ProductPrice> productPrice = repository.findById(productId);
+		
+		if(productPrice.isPresent()) {
+			ProductPrice newPrice = productPrice.get();
+			newPrice.setPrice(price.getValue());	
+			newPrice.setCurrencyCode(price.getCurrencyCode());
+			repository.save(newPrice);
+			return getProductPrice(newPrice);
+			
+		}else {
+			return null;
+		}
 		
 	}
 
