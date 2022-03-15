@@ -22,7 +22,7 @@ public class RetailContoller {
 	
 	private final String key = "3yUxt7WltYG7MFKPp7uyELi1K40ad2ys";
 	
-	@GetMapping
+	@GetMapping("/status")
 	public String status() {
 		return "UP";
 	}
