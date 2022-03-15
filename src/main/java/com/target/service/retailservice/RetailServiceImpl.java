@@ -66,7 +66,6 @@ public class RetailServiceImpl implements RetailService{
 		price = repositoryService.updatePriceDetails(productId, price);
 		
 		if(price != null) {
-			productDetails.setCurrentPrice(price);
 			return productDetails;
 		}else {
 			throw new RecordNotFoundException("Product "+ productId +" Not Found");
@@ -77,6 +76,10 @@ public class RetailServiceImpl implements RetailService{
 	private void validateRequest(int productId, ProductDetails productDetails) {
 
 		if(productId != productDetails.getId()) {
+			throw new ValidationException("Invalid Payload");
+		}
+		
+		if(productDetails.getCurrentPrice() == null) {
 			throw new ValidationException("Invalid Payload");
 		}
 		
