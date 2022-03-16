@@ -38,7 +38,7 @@ public class ProductDetailsRepositoryService{
 	
 	public Price getProductPriceById(int productId) {
 		
-		Price price = new Price();
+		Price price = null;
 		
 		Optional<ProductPrice> productPrice = repository.findById(productId);
 		
