@@ -1,6 +1,11 @@
 To Setup this application
 1. create a keyspace and add it in application.properties file
 2. create a table name product_price in cassandra
+	CREATE TABLE product_price (
+    product_id int PRIMARY KEY,
+    currency_code text,
+    price double
+    );
 3. update cassandra contact points, port and datacenter accordingly in application.properties
 
 To run this application

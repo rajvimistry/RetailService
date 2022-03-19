@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.target.driver.ProductDetailsRepository;
+import com.target.dao.ProductDetailsRepository;
 import com.target.model.dto.Price;
 import com.target.model.dto.ProductPrice;
 
@@ -39,7 +39,6 @@ public class ProductDetailsRepositoryService{
 	public Price getProductPriceById(int productId) {
 		
 		Price price = null;
-		
 		Optional<ProductPrice> productPrice = repository.findById(productId);
 		
 		if(!productPrice.isEmpty()) {

@@ -77,13 +77,9 @@ public class RetailServiceImpl implements RetailService{
 
 		if(productId != productDetails.getId()) {
 			throw new ValidationException("Invalid Payload");
-		}
-		
-		if(productDetails.getCurrentPrice() == null) {
+		} else if(productDetails.getCurrentPrice() == null) {
 			throw new ValidationException("Invalid Payload");
-		}
-		
-		if(productDetails.getCurrentPrice().getCurrencyCode() == null ||
+		} else if(productDetails.getCurrentPrice().getCurrencyCode() == null ||
 				productDetails.getCurrentPrice().getCurrencyCode().isEmpty()) {
 			throw new ValidationException("Invalid Payload");
 		}

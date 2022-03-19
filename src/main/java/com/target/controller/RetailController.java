@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.target.excpetion.RecordNotFoundException;
 import com.target.model.dto.ProductDetails;
-import com.target.service.productdetails.ProductDetailsRepositoryService;
 import com.target.service.retailservice.RetailService;
 
 @RestController
 @RequestMapping("/products")
-public class RetailContoller {
+public class RetailController {
 	
 	@Autowired
 	private RetailService retailService;

@@ -12,7 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.target.driver.ProductDetailsRepository;
+import com.target.dao.ProductDetailsRepository;
 import com.target.model.dto.Price;
 import com.target.model.dto.ProductPrice;
 
