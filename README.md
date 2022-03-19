@@ -1,6 +1,7 @@
 To Setup this application
 1. create a keyspace and add it in application.properties file
 2. create a table name product_price in cassandra
+
 	CREATE TABLE product_price (
     product_id int PRIMARY KEY,
     currency_code text,
@@ -12,10 +13,13 @@ To run this application
 1. Run -> Run as Spring Boot Application
 
 Endpoints:
+
 [GET] http://localhost:8080/retailservice/products/status
+
 [GET] http://localhost:8080/retailservice/products/12954218
+
 [PUT] http://localhost:8080/retailservice/products/13860428
-		Paylaod -> 
+
 		{
 		    "id": 13860428,
 		    "name": "The Big Lebowski (Blu-ray)",
