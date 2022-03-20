@@ -1,0 +1,23 @@
+{
+	"request" : {
+			"method": "GET",
+			"urlPathPattern": "/redsky_aggregations/v1/redsky/case_study_v1",
+			"queryParameters": {
+                "tcin": {
+                    "equalTo": "54456118"
+                },
+                "key": {
+                	"equalTo": "3yUxt7WltYG7MFKPp7uyELi1K40ad2ys"
+                }
+            }
+	},
+	"response": {
+		"status": 400,
+		"headers": {
+			"Content-Type": "application/json"
+		},
+		"jsonBody": {
+			"errors":[{"message":"No product found with tcin 54456118"}]
+		}
+	}
+}

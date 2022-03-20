@@ -1,7 +1,15 @@
 {
 	"request" : {
 		"method": "GET",
-		"urlPath": "/redsky_aggregations/v1/redsky/case_study_v1"
+		"urlPathPattern": "/redsky_aggregations/v1/redsky/case_study_v1",
+		"queryParameters": {
+                "tcin": {
+                    "equalTo": "13860428"
+                },
+                "key": {
+                	"equalTo": "3yUxt7WltYG7MFKPp7uyELi1K40ad2ys"
+                }
+            }
 	},
 	"response": {
 		"status": 200,
