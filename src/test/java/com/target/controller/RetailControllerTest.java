@@ -10,10 +10,15 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
@@ -23,7 +28,10 @@ import com.target.dao.ProductDetailsRepository;
 import com.target.excpetion.RecordNotFoundException;
 import com.target.excpetion.ValidationException;
 import com.target.model.dto.ProductPrice;
+import com.target.model.response.Response;
 import com.target.myretail.BaseMvcTest;
+import com.target.util.FallbackService;
+import com.target.util.FeignServiceUtil;
 
 @AutoConfigureWireMock(stubs = "classpath:mappings", port = 0)
 class RetailControllerTest extends BaseMvcTest {
@@ -34,13 +42,16 @@ class RetailControllerTest extends BaseMvcTest {
 	@MockBean
     private ProductDetailsRepository productDetailsRepository;
 	
+	@Mock
+	private FeignServiceUtil util;
+	
 	private Optional<ProductPrice> productPrice = null;
 	
 	@BeforeEach
 	public void setup() {
 		ProductPrice newProductPrice = new ProductPrice(12345,10.99,"USD");
 		productPrice = Optional.of(newProductPrice);
-		when(productDetailsRepository.findById(13860428)).thenReturn(productPrice); 
+		when(productDetailsRepository.findById(13860428)).thenReturn(productPrice);
 	}
 
 	@Test
@@ -56,19 +67,6 @@ class RetailControllerTest extends BaseMvcTest {
 	      .andExpect(jsonPath("$.current_price").isNotEmpty())
 	      .andExpect(jsonPath("$.current_price.value").value("10.99"))
 	      .andExpect(jsonPath("$.current_price.currency_code").value("USD"));
-	}
-	
-	@Test
-	public void getProductDetailsProductNotFound() throws Exception {
-
-		MvcResult result = mockMvc.perform(
-				MockMvcRequestBuilders.get("/products/54456118")
-				.accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isNotFound())
-				.andReturn();
-		
-		Optional<RecordNotFoundException> e = Optional.ofNullable((RecordNotFoundException)result.getResolvedException());
-		e.ifPresent( (ex) -> assertThat(ex.getMessage().equals("Product 54456118 Not Found")));
 	}
 	
 	@Test

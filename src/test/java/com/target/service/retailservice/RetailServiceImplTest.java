@@ -9,8 +9,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import com.target.excpetion.RecordNotFoundException;
+import com.target.excpetion.ServiceException;
 import com.target.excpetion.ValidationException;
 import com.target.model.dto.Price;
 import com.target.model.dto.ProductDetails;
@@ -35,6 +38,9 @@ class RetailServiceImplTest {
 	private RetailServiceImpl retailService;
 	
 	@Mock
+	private ResponseEntity<Response> responseEntity;
+	
+	@Mock
 	private Response response;
 	
 	@Mock
@@ -56,9 +62,10 @@ class RetailServiceImplTest {
 	private ProductDetails productDetails;
 
 	@Test
-	void getProductAndPriceDetails() {
+	void getProductAndPriceDetails() throws Exception {
 		
-		when(feignServiceUtil.getProductDetails("ABCD1234", 123456)).thenReturn(response);
+		when(feignServiceUtil.getProductDetails("ABCD1234", 123456)).thenReturn(responseEntity);
+		when(responseEntity.getBody()).thenReturn(response);
 		when(response.getData()).thenReturn(data);
 		when(data.getProduct()).thenReturn(product);
 		when(product.getItem()).thenReturn(item);
@@ -75,12 +82,26 @@ class RetailServiceImplTest {
 	
 	@Test
 	void getProductAndPriceDetailsProductNotFound() {
-		when(feignServiceUtil.getProductDetails("ABCD1234", 123456)).thenThrow(new RecordNotFoundException("No product found with tcin"));
+		when(feignServiceUtil.getProductDetails("ABCD1234", 123456)).thenReturn(responseEntity);
+		when(responseEntity.getStatusCode()).thenReturn(HttpStatus.NOT_FOUND);
 		
 		RecordNotFoundException e = Assertions.assertThrows(
 				RecordNotFoundException.class,
 				() -> retailService.getProductAndPriceDetails("ABCD1234", 123456),
 				"Record Not Found Exception is supposed to thrown"
+				);
+		
+	}
+	
+	@Test
+	void getProductAndPriceDetailsInternalServerError() {
+		when(feignServiceUtil.getProductDetails("ABCD1234", 123456)).thenReturn(responseEntity);
+		when(responseEntity.getStatusCode()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR);
+		
+		ServiceException e = Assertions.assertThrows(
+				ServiceException.class,
+				() -> retailService.getProductAndPriceDetails("ABCD1234", 123456),
+				"ServiceException is supposed to thrown"
 				);
 		
 	}
