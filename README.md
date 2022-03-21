@@ -7,6 +7,16 @@ To Setup this application
     currency_code text,
     price double
     );
+    
+Insert Data by using following queries:
+    
+    use <keyspace name>;
+    insert into product_price (product_id, currency_code, price) values (13860428,'USD',13.49);
+    insert into product_price (product_id, currency_code, price) values (54456119,'USD',40.49);
+    insert into product_price (product_id, currency_code, price) values (13264003,'USD',10.11);
+    insert into product_price (product_id, currency_code, price) values (12954218,'USD',15.11);
+    
+    
 3. update cassandra contact points, port and datacenter accordingly in application.properties
 
 To run this application

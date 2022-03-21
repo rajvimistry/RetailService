@@ -23,18 +23,18 @@ public class ProductDetailsRepositoryService{
 	@Autowired
 	private ProductDetailsRepository repository;
 	
-	@PostConstruct
-	public void savePriceDetails() {
-		List<ProductPrice> list = new ArrayList<>();
-		
-		list.add(new ProductPrice(13860428,13.49,"USD"));
-		list.add(new ProductPrice(54456119,40.49,"USD"));
-		list.add(new ProductPrice(13264003,10.11,"USD"));
-		list.add(new ProductPrice(12954218,32.99,"USD"));
-		
-		repository.saveAll(list);
-		
-	}
+//	@PostConstruct
+//	public void savePriceDetails() {
+//		List<ProductPrice> list = new ArrayList<>();
+//		
+//		list.add(new ProductPrice(13860428,13.49,"USD"));
+//		list.add(new ProductPrice(54456119,40.49,"USD"));
+//		list.add(new ProductPrice(13264003,10.11,"USD"));
+//		list.add(new ProductPrice(12954218,32.99,"USD"));
+//		
+//		repository.saveAll(list);
+//		
+//	}
 	
 	public Price getProductPriceById(int productId) {
 		
